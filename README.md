@@ -1,4 +1,2 @@
-# flutter_pedaladas
-
-A new Flutter project.
-# sesi_flutter_pedal_gps_2026
+# flutter_pedal
+Aplicativo em desenvolvimento com slpash, menu e gps, latitude e longitude.
