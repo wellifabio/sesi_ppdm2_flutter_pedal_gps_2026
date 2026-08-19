@@ -83,7 +83,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       body: Center(
         child: Transform.scale(
           scale: tamanho,
-          child: Image.asset("icone.png", width: 300),
+          child: Image.asset("./icone.png", width: 300),
         ),
       ),
     );
