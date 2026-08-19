@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'home.dart';
-import 'trajetos.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -22,13 +20,12 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   }
 
   void animacao() {
-    aumentar =
-        AnimationController(vsync: this, duration: Duration(seconds: 2))
-          ..addListener(() {
-            setState(() {
-              tamanho = aumentar.value;
-            });
-          });
+    aumentar = AnimationController(vsync: this, duration: Duration(seconds: 2))
+      ..addListener(() {
+        setState(() {
+          tamanho = aumentar.value;
+        });
+      });
     aumentar.forward().then((value) => irParaHome());
   }
 
@@ -42,44 +39,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pedal")),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            ListTile(
-              trailing: Icon(Icons.chevron_left, size: 50),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: Icon(Icons.splitscreen),
-              title: Text('Splash'),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Home()),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.directions_bike),
-              title: Text('Trajetos'),
-              onTap: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Trajetos()),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Sair'),
-              onTap: () => SystemNavigator.pop(),
-            ),
-          ],
-        ),
-      ),
       body: Center(
         child: Transform.scale(
           scale: tamanho,
