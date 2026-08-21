@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'colors.dart';
 
@@ -10,6 +12,11 @@ abstract class AppTheme {
       scrimColor: AppColors.c2,
     ),
     iconTheme: IconThemeData(color: AppColors.c1),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.c1,
+      foregroundColor: AppColors.c5,
+      shape: CircleBorder(),
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.c1,
       foregroundColor: AppColors.c4,
@@ -65,6 +72,11 @@ abstract class AppTheme {
       scrimColor: AppColors.c5,
     ),
     iconTheme: IconThemeData(color: AppColors.c5),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.c5,
+      foregroundColor: AppColors.c1,
+      shape: CircleBorder(),
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.c5,
       foregroundColor: AppColors.c2,
