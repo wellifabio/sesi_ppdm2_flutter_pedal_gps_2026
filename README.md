@@ -23,6 +23,3 @@ App Flutter para registrar passeios de bicicleta. O aplicativo permite registrar
 |![Trajetos](./assets/screenshots/print04.png)|![Detalhes](./assets/screenshots/print05.png)|![Detalhes](./assets/screenshots/print06.png)|
 |Trajetos|||
 |![Trajetos](./assets/screenshots/print07.png)|||
-## [Link do APK para instalar no celular](./assets/app-release.apk)
-Não me responsabilizo por qualquer dano que possa ocorrer ao instalar o aplicativo em seu dispositivo. Use por sua conta e risco.
-- Se você for aluno do SESI ou SENAI utilize um celular de teste da instituição, pois o aplicativo não foi testado em todos os modelos de celulares.
