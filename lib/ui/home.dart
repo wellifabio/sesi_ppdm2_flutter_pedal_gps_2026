@@ -89,12 +89,14 @@ class _HomeState extends State<Home> {
                         children: [
                           Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Image.file(
-                              pedais[index]["imagem"],
-                              fit: BoxFit.contain,
-                              width: double.infinity,
-                              height: 100,
-                            ),
+                            child: pedais[index]["imagem"] != null
+                                ? Image.file(
+                                    pedais[index]["imagem"],
+                                    fit: BoxFit.contain,
+                                    width: double.infinity,
+                                    height: 100,
+                                  )
+                                : Icon(Icons.image, size: 100),
                           ),
                           Text('Origem: ${pedais[index]["origem"]}'),
                           Text('Destino: ${pedais[index]["destino"]}'),
