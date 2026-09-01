@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'splash.dart';
 import 'trajetos.dart';
@@ -13,9 +14,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String latitude = "";
-  String longitude = "";
+  //Latitude e Longitude de São Paulo, Brasil, como valores padrão caso a localização não seja obtida.
+  String latitude = "-23.550520";
+  String longitude = "-46.633308";
   String origem = "";
+  LatLng? _pontoClicado;
 
   late final coordenadasFuture = obterCoordenadasGPS().then((position) {
     if (position != null) {
@@ -81,6 +84,35 @@ class _HomeState extends State<Home> {
                 }
                 return ElevatedButton(onPressed: () {}, child: Text(origem));
               },
+            ),
+            Expanded(
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(-23.550520, -46.633308),
+                  zoom: 14.0,
+                ),
+                onTap: (LatLng latLng) {
+                  // Callback acionado ao clicar em qualquer lugar do mapa
+                  setState(() {
+                    _pontoClicado = latLng;
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Latitude: ${latLng.latitude}, Longitude: ${latLng.longitude}',
+                      ),
+                    ),
+                  );
+                },
+                markers: _pontoClicado == null
+                    ? {}
+                    : {
+                        Marker(
+                          markerId: const MarkerId('clicado'),
+                          position: _pontoClicado!,
+                        ),
+                      },
+              ),
             ),
           ],
         ),
