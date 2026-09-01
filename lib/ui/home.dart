@@ -14,17 +14,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //Latitude e Longitude de São Paulo, Brasil, como valores padrão caso a localização não seja obtida.
-  String latitude = "-23.550520";
-  String longitude = "-46.633308";
-  String origem = "";
-  LatLng? _pontoClicado;
+  //_latitude e _longitude de São Paulo, Brasil, como valores padrão caso a localização não seja obtida.
+  LatLng _origem = LatLng(-23.550520, -46.633308);
+  LatLng? _destino;
 
   late final coordenadasFuture = obterCoordenadasGPS().then((position) {
     if (position != null) {
-      latitude = position.latitude.toString();
-      longitude = position.longitude.toString();
-      origem = '$latitude, $longitude';
+      _origem = LatLng(position.latitude, position.longitude);
     }
   });
 
@@ -75,44 +71,43 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Bem vindo ao Pedal!"),
-            Text("Partir de:"),
+            Text("Clique no mapa para selecionar o destino:"),
             FutureBuilder<Position?>(
               future: coordenadasFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return CircularProgressIndicator();
                 }
-                return ElevatedButton(onPressed: () {}, child: Text(origem));
-              },
-            ),
-            Expanded(
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(-23.550520, -46.633308),
-                  zoom: 14.0,
-                ),
-                onTap: (LatLng latLng) {
-                  // Callback acionado ao clicar em qualquer lugar do mapa
-                  setState(() {
-                    _pontoClicado = latLng;
-                  });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Latitude: ${latLng.latitude}, Longitude: ${latLng.longitude}',
-                      ),
+                return Expanded(
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: _origem,
+                      zoom: 14.0,
                     ),
-                  );
-                },
-                markers: _pontoClicado == null
-                    ? {}
-                    : {
-                        Marker(
-                          markerId: const MarkerId('clicado'),
-                          position: _pontoClicado!,
+                    onTap: (LatLng latLng) {
+                      // Callback acionado ao clicar em qualquer lugar do mapa
+                      setState(() {
+                        _destino = latLng;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '_latitude: ${latLng.latitude}, _longitude: ${latLng.longitude}',
+                          ),
                         ),
-                      },
-              ),
+                      );
+                    },
+                    markers: {
+                      Marker(markerId: MarkerId('origem'), position: _origem),
+                      if (_destino != null)
+                        Marker(
+                          markerId: MarkerId('clicado'),
+                          position: _destino!,
+                        ),
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),
